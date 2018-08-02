@@ -11,20 +11,8 @@ class Piece {
         return [];
     }
 
-    revive () {
-        //Maybe this shouldn't be a thing considering it's only useful for 1 role. (Retributionist)
-    }
-
-    kill () {
-        //Required?   
-    }
-
     onMove (newTile) {
         //When a piece moves.
-    }
-
-    onAttack (attackingPiece) {
-        //When the piece attacks someone.
     }
 
     canMoveTo (tile) {
@@ -39,9 +27,14 @@ class Piece {
         if (check && !this.canMoveTo(tile)) return false;
         //We need to consider that some roles have it so killing them only kills you.
         if (tile.piece) {
-            if (!tile.piece.role.canDie(tile.piece) || !tile.piece.role.beforeDeath(tile.piece)) return false;
+            if (!tile.piece.role.canDie(this) || !tile.piece.role.beforeDeath(this)) return false;
+            const oldPiece = tile.piece;
+            this.tile.piece = null; //We no longer are at our tile.
+            this.tile = tile; //We're changing our current tile to the one we are at.
+            tile.piece = this; //We're changing our current tile to the one we are at.
+            oldPiece.onDeath(this);
         }
-        this.onMove(tile);
+        this.onMove(tile); //pawn. >.>
         return true;
     }
 }
