@@ -43,6 +43,9 @@ class Piece {
         //We need to consider that some roles have it so killing them only kills you.
         let oldPiece;
         if (tile.piece) {
+            for (const effect of tile.piece.role.effects) {
+                if (!effect.canDie) return effect;
+            }
             if (!tile.piece.role.canDie(this) || !tile.piece.role.beforeDeath(this)) return false;
             oldPiece = tile.piece;
             this.tile.piece = null; //We no longer are at our tile.

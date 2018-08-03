@@ -9,6 +9,11 @@ class Role {
         return [];
     }
 
+    bypassImmunity () {
+        //For SK and ChessEnthusiast.
+        return false;
+    }
+
     beforeDeath (attackingPiece) {
         //Before our death, do any actions. returning false === we don't actually die.
         //true === continue with death.
