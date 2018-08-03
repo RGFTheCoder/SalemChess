@@ -49,8 +49,6 @@ for (const y in INIT_BOARD) {
         if (!INIT_BOARD[y][x]) continue;
         const tile = Game.getTile(x, y);
         if (INIT_BOARD[y][x][1] === null) continue;
-        tile.piece = new Pieces[INIT_BOARD[y][x][1]](INIT_BOARD[y][x][0], tile, new Roles.Doctor());
+        Game.addPiece( new Pieces[INIT_BOARD[y][x][1]](INIT_BOARD[y][x][0], tile, new Roles.Doctor()), tile );
     }
 }
-
-//console.log(Game.getTile(6, 6).piece.allowedMoves.map(t => [t.x, t.y]));

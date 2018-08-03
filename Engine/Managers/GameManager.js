@@ -1,4 +1,5 @@
 const Tile = require("../Game/Tile");
+const EffectManager = require("./EffectManager");
 
 class GameManager {
 
@@ -14,6 +15,8 @@ class GameManager {
         }
         this.isWhiteTurn = isWhiteTurn;
         this.deadPieces = [];
+        this.pieces = [];
+        this.effects = new EffectManager(this);
     }
 
     getTile (x, y) {
@@ -21,7 +24,13 @@ class GameManager {
     }
 
     nextTurn () {
+        for (const piece of this.pieces) if (piece.role && piece.tile && piece.isWhite === this.isWhiteTurn) piece.role.passiveTurn();
         this.isWhiteTurn = !this.isWhiteTurn;
+    }
+
+    addPiece (tile, piece) {
+        tile.piece = piece;
+        this.pieces.push(piece);
     }
 
 }

@@ -21,6 +21,18 @@ class Role {
         return true;
     }
 
+    onMove (newTile) {
+        //Called when the piece moves.
+    }
+
+    passiveTurn () {
+        //Run everytime a turn is passed.
+    }
+
+    passiveEffects () {
+        //Run everytime a unit moves/dies. (effects should be added here)
+    }
+
     useAbility (tile_or_tiles) {
         //all roles with abilities.
     }
